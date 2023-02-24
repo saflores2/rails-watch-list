@@ -1,2 +1,25 @@
-<h1>Lists#index</h1>
-<p>Find me in app/views/lists/index.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://cinefilosfrustrados.com/wp-content/uploads/2020/04/este-es-el-mejor-lugar-para-sentarse-en-un-cine-1280x720-1.jpg);">
+  <div class="container">
+    <h1>Save any kind of movie</h1>
+    <p>Classic</p>
+  </div>
+</div>
+
+<div class="container justify-content-center">
+
+  <div class="d-flex justify-content-between mb-3 py-4 align-self-center">
+    <h2>My Lists</h2>
+    <h5 class="align-self-center p-3 mb-2 bg-white text-dark"><%= link_to("Create a movie list", new_list_path) %></h5>
+  </div>
+
+  <div>
+   <% @lists.each do |list| %>
+    <div class="cards d-inline-flex justify-content-center">
+      <div class="card-category d-flex justify-content-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://humanidades.com/wp-content/uploads/2019/02/cine-5-e1585960007845.jpg)">
+        <%= link_to(list.name, list_path(list.id)) %>
+      </div>
+  </div>
+  <% end %>
+  </div>
+
+</div>

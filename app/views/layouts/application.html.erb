@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <div class="navbar-lewagon">
+    <div class="d-flex flex-row-reverse" >
+      <h5 class="p-3"><%= link_to("New list", new_list_path) %></h5>
+      <h5 class="p-3"><%= link_to("My lists", lists_path) %></h5>
+    </div>
+    </div>
     <%= yield %>
   </body>
 </html>

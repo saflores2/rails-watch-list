@@ -1,2 +1,38 @@
-<h1>Lists#show</h1>
-<p>Find me in app/views/lists/show.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://cinefilosfrustrados.com/wp-content/uploads/2020/04/este-es-el-mejor-lugar-para-sentarse-en-un-cine-1280x720-1.jpg);">
+  <div class="container">
+    <h1><%= @list.name %></h1>
+    <p><%= "#{@list.movies.size} movies" %></p>
+  </div>
+</div>
+
+<div class="container justify-content-center">
+
+  <div class="d-flex justify-content-between mb-3 py-4 align-self-center">
+    <h2>Movies</h2>
+  </div>
+
+  <div>
+    <% @list.bookmarks.each do |bm| %>
+      <%# <div class="cards d-inline-flex justify-content-center"> %>
+        <%# <div class="card-category d-flex justify-content-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://humanidades.com/wp-content/uploads/2019/02/cine-5-e1585960007845.jpg)"> %>
+          <% movie = Movie.find(bm.movie_id) %>
+          <%= movie.title %>
+          <%= bm.comment %>
+          <%= link_to "Delete", bookmark_path(bm.id), data: {
+            turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <h3>Add a movie</h3>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment %>
+      <%= f.association :movie %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+</div>
