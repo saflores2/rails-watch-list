@@ -30,7 +30,7 @@
 # require "json"
 # url = "https://tmdb.lewagon.com/movie/top_rated"
 # base_url_img = "https://image.tmdb.org/t/p/original"
-# 10.times do |i|
+# 1.times do |i|
 #   movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)['results']
 #   puts movies
 #   movies.each do |movie|

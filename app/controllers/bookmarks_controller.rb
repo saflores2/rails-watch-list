@@ -2,6 +2,7 @@ class BookmarksController < ApplicationController
   before_action :set_bookmark, only: %i[destroy]
 
   def create
+    @review = Review.new
     @bookmark = Bookmark.new(bookmark_params)
     @list = List.find(params[:list_id])
     @bookmark.list = @list

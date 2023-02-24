@@ -1,4 +1,4 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://cinefilosfrustrados.com/wp-content/uploads/2020/04/este-es-el-mejor-lugar-para-sentarse-en-un-cine-1280x720-1.jpg);">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.photo.key, height: 300, crop: :fill %>')">
   <div class="container">
     <h1><%= @list.name %></h1>
     <p><%= "#{@list.movies.size} movies" %></p>
@@ -12,27 +12,57 @@
   </div>
 
   <div>
-    <% @list.bookmarks.each do |bm| %>
-      <%# <div class="cards d-inline-flex justify-content-center"> %>
-        <%# <div class="card-category d-flex justify-content-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://humanidades.com/wp-content/uploads/2019/02/cine-5-e1585960007845.jpg)"> %>
-          <% movie = Movie.find(bm.movie_id) %>
-          <%= movie.title %>
-          <%= bm.comment %>
-          <%= link_to "Delete", bookmark_path(bm.id), data: {
-            turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+
+    <div class="card-product">
+      <% @list.bookmarks.each do |bm| %>
+      <% movie = Movie.find(bm.movie_id) %>
+      <img src="https://humanidades.com/wp-content/uploads/2019/02/cine-5-e1585960007845.jpg" />
+        <div class="card-product-infos">
+          <h2><%= movie.title %></h2>
+          <p><%= bm.comment %></p>
+          <p><%= link_to "Delete", bookmark_path(bm.id), data: {
+              turbo_method: :delete, turbo_confirm: "Are you sure?"}%></p>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <h3>Add a movie</h3>
+      <%= simple_form_for [@list, @bookmark], namespace: 'first_user_form', id:"form1" do |f1| %>
+        <%= f1.input :comment %>
+        <%= f1.association :movie %>
+        <%= f1.submit %>
+      <% end %>
+    </div>
+
   </div>
 
-
   <div>
-    <h3>Add a movie</h3>
-    <%= simple_form_for [@list, @bookmark] do |f| %>
-      <%= f.input :comment %>
-      <%= f.association :movie %>
-      <%= f.submit %>
-    <% end %>
+    <div class="my-5 d-flex bd-highlight">
+
+      <div class="p-2 w-100 bd-highlight">
+        <h3>Reviews</h3>
+        <% @list.reviews.each do |review| %>
+          <div class="notification">
+            <div class="notification-content">
+              <p><small><%= review.rating %></small></p>
+              <p><%= review.comment %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="p-2 flex-shrink-1 bd-highlight">
+        <h3>Add a review</h3>
+        <%= simple_form_for [@list, @review], namespace: 'second_user_form', id:"form2" do |f2| %>
+          <%= f2.input :comment %>
+          <%= f2.input :rating, collection: 1..5, :prompt => "Select your rating" %>
+          <%= f2.submit %>
+        <% end %>
+      </div>
+
+    </div>
+
   </div>
 
 </div>

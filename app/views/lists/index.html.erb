@@ -15,7 +15,9 @@
   <div>
    <% @lists.each do |list| %>
     <div class="cards d-inline-flex justify-content-center">
-      <div class="card-category d-flex justify-content-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://humanidades.com/wp-content/uploads/2019/02/cine-5-e1585960007845.jpg)">
+      <div class="card-category d-flex justify-content-center"
+      style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path list.photo.key, height: 300, crop: :fill %>')"
+      >
         <%= link_to(list.name, list_path(list.id)) %>
       </div>
   </div>
